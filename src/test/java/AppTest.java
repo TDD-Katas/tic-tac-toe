@@ -36,7 +36,7 @@ public class AppTest {
         int interactions = 0;
 
         String newLine = "\r";
-        InputStream in = new ByteArrayInputStream(("Adi" + newLine + "y" + newLine).getBytes());
+        InputStream in = new ByteArrayInputStream(("Adi" + newLine + "y" + newLine + "0" + newLine).getBytes());
 
         Scanner scanner = new Scanner(in);
 
@@ -51,6 +51,13 @@ public class AppTest {
         interactions++; //one input
         complexity += 2; //number of choices
 
+        System.out.print("| |" + newLine);
+        scanner.nextLine();
+        interactions++; //one input
+        complexity += 1; //number of choices
+
+        System.out.print("|X|" + newLine);
+
         System.out.print("hello world!" + newLine);
 
         String log = systemOutRule.getLog();
@@ -58,9 +65,11 @@ public class AppTest {
         assertEquals("Your name", lines[0]);
         assertEquals("Adi", lines[1]);
         assertEquals("Are you ready to start? (y/n)", lines[2]);
-        assertEquals("hello world!", lines[3]);
-        assertEquals(1+1, interactions);
-        assertEquals(1+2, complexity);
+        assertEquals("| |", lines[3]);
+        assertEquals("|X|", lines[4]);
+        assertEquals("hello world!", lines[5]);
+        assertEquals(1+1+1, interactions);
+        assertEquals(1+2+1, complexity);
     }
 
     @Test
