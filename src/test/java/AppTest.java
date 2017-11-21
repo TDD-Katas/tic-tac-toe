@@ -12,8 +12,8 @@ public class AppTest {
 
     @Test
     public void writesTextToSystemOut() {
-        System.out.print("hello world");
-        assertEquals("hello world", systemOutRule.getLog());
+        System.out.print("hello world!");
+        assertEquals("hello world!", systemOutRule.getLog());
     }
 
     @Test
