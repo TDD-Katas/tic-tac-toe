@@ -35,25 +35,26 @@ public class AppTest {
         int complexity = 0;
         int interactions = 0;
 
-        InputStream in = new ByteArrayInputStream(("Adi\n"+"y\n").getBytes());
+        String newLine = "\r";
+        InputStream in = new ByteArrayInputStream(("Adi" + newLine + "y" + newLine).getBytes());
 
         Scanner scanner = new Scanner(in);
 
-        System.out.println("Your name");
+        System.out.print("Your name"+ newLine);
         String name = scanner.nextLine();
         interactions++; //one input
         complexity++; //one choice
-        System.out.println(name);
+        System.out.print(name + newLine);
 
-        System.out.println("Are you ready to start? (y/n)");
+        System.out.print("Are you ready to start? (y/n)"+ newLine);
         scanner.nextLine();
         interactions++; //one input
         complexity += 2; //number of choices
 
-        System.out.println("hello world!");
+        System.out.print("hello world!" + newLine);
 
         String log = systemOutRule.getLog();
-        String[] lines = log.split("\n");
+        String[] lines = log.split(newLine);
         assertEquals("Your name", lines[0]);
         assertEquals("Adi", lines[1]);
         assertEquals("Are you ready to start? (y/n)", lines[2]);
