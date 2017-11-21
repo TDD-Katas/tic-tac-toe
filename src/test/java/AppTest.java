@@ -2,7 +2,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -32,16 +34,32 @@ public class AppTest {
     public void writesTextToSystemOut() throws IOException {
         int complexity = 0;
         int interactions = 0;
-        
-        Scanner scanner = new Scanner(System.in);
+
+        InputStream in = new ByteArrayInputStream(("Adi\n"+"y\n").getBytes());
+
+        Scanner scanner = new Scanner(in);
+
+        System.out.println("Your name");
+        String name = scanner.nextLine();
+        interactions++; //one input
+        complexity++; //one choice
+        System.out.println(name);
+
+        System.out.println("Are you ready to start? (y/n)");
         scanner.nextLine();
+        interactions++; //one input
+        complexity += 2; //number of choices
 
-        System.out.print("Press any key");
+        System.out.println("hello world!");
 
-
-        System.out.print("hello world!");
-
-        assertEquals("hello world!", systemOutRule.getLog());
+        String log = systemOutRule.getLog();
+        String[] lines = log.split("\n");
+        assertEquals("Your name", lines[0]);
+        assertEquals("Adi", lines[1]);
+        assertEquals("Are you ready to start? (y/n)", lines[2]);
+        assertEquals("hello world!", lines[3]);
+        assertEquals(1+1, interactions);
+        assertEquals(1+2, complexity);
     }
 
     @Test
